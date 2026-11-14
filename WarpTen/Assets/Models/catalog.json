@@ -1,0 +1,871 @@
+{
+  "core": {
+    "size": [
+      3,
+      3,
+      3
+    ],
+    "meshes": [
+      {
+        "resource": "WarpTen.Models.core__shell.obj",
+        "group": "shell",
+        "vertices": 1952,
+        "triangles": 3824,
+        "color": [
+          0.54,
+          0.59,
+          0.6,
+          1
+        ],
+        "metallic": 0.65,
+        "roughness": 0.32
+      },
+      {
+        "resource": "WarpTen.Models.core__metal.obj",
+        "group": "metal",
+        "vertices": 3752,
+        "triangles": 7348,
+        "color": [
+          0.17,
+          0.22,
+          0.25,
+          1
+        ],
+        "metallic": 0.8,
+        "roughness": 0.26
+      },
+      {
+        "resource": "WarpTen.Models.core__dark.obj",
+        "group": "dark",
+        "vertices": 648,
+        "triangles": 1260,
+        "color": [
+          0.025,
+          0.043,
+          0.052,
+          1
+        ],
+        "metallic": 0.25,
+        "roughness": 0.55
+      },
+      {
+        "resource": "WarpTen.Models.core__ceramic.obj",
+        "group": "ceramic",
+        "vertices": 4240,
+        "triangles": 8344,
+        "color": [
+          0.78,
+          0.8,
+          0.75,
+          1
+        ],
+        "metallic": 0.18,
+        "roughness": 0.32
+      },
+      {
+        "resource": "WarpTen.Models.core__copper.obj",
+        "group": "copper",
+        "vertices": 1152,
+        "triangles": 2288,
+        "color": [
+          0.59,
+          0.28,
+          0.1,
+          1
+        ],
+        "metallic": 0.8,
+        "roughness": 0.27
+      },
+      {
+        "resource": "WarpTen.Models.core__charge.obj",
+        "group": "charge",
+        "vertices": 1056,
+        "triangles": 2100,
+        "color": [
+          0.015,
+          0.7,
+          0.88,
+          1
+        ],
+        "metallic": 0.15,
+        "roughness": 0.24
+      },
+      {
+        "resource": "WarpTen.Models.core__status.obj",
+        "group": "status",
+        "vertices": 864,
+        "triangles": 1680,
+        "color": [
+          0.47,
+          0.9,
+          0.16,
+          1
+        ],
+        "metallic": 0.1,
+        "roughness": 0.35
+      }
+    ],
+    "portLabels": [],
+    "plasmaPorts": [
+      {
+        "position": [
+          1.5,
+          0.5,
+          0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "infuser": {
+    "size": [
+      3,
+      2,
+      2
+    ],
+    "meshes": [
+      {
+        "resource": "WarpTen.Models.infuser__shell.obj",
+        "group": "shell",
+        "vertices": 800,
+        "triangles": 1584,
+        "color": [
+          0.54,
+          0.59,
+          0.6,
+          1
+        ],
+        "metallic": 0.65,
+        "roughness": 0.32
+      },
+      {
+        "resource": "WarpTen.Models.infuser__metal.obj",
+        "group": "metal",
+        "vertices": 2380,
+        "triangles": 4684,
+        "color": [
+          0.17,
+          0.22,
+          0.25,
+          1
+        ],
+        "metallic": 0.8,
+        "roughness": 0.26
+      },
+      {
+        "resource": "WarpTen.Models.infuser__dark.obj",
+        "group": "dark",
+        "vertices": 1248,
+        "triangles": 2448,
+        "color": [
+          0.025,
+          0.043,
+          0.052,
+          1
+        ],
+        "metallic": 0.25,
+        "roughness": 0.55
+      },
+      {
+        "resource": "WarpTen.Models.infuser__ceramic.obj",
+        "group": "ceramic",
+        "vertices": 3456,
+        "triangles": 6912,
+        "color": [
+          0.78,
+          0.8,
+          0.75,
+          1
+        ],
+        "metallic": 0.18,
+        "roughness": 0.32
+      },
+      {
+        "resource": "WarpTen.Models.infuser__copper.obj",
+        "group": "copper",
+        "vertices": 3456,
+        "triangles": 6912,
+        "color": [
+          0.59,
+          0.28,
+          0.1,
+          1
+        ],
+        "metallic": 0.8,
+        "roughness": 0.27
+      },
+      {
+        "resource": "WarpTen.Models.infuser__charge.obj",
+        "group": "charge",
+        "vertices": 1120,
+        "triangles": 2224,
+        "color": [
+          0.015,
+          0.7,
+          0.88,
+          1
+        ],
+        "metallic": 0.15,
+        "roughness": 0.24
+      }
+    ],
+    "portLabels": [],
+    "plasmaPorts": [
+      {
+        "position": [
+          0,
+          0.5,
+          1
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ]
+      }
+    ]
+  },
+  "coil": {
+    "size": [
+      3,
+      2,
+      1
+    ],
+    "meshes": [
+      {
+        "resource": "WarpTen.Models.coil__shell.obj",
+        "group": "shell",
+        "vertices": 1376,
+        "triangles": 2736,
+        "color": [
+          0.54,
+          0.59,
+          0.6,
+          1
+        ],
+        "metallic": 0.65,
+        "roughness": 0.32
+      },
+      {
+        "resource": "WarpTen.Models.coil__metal.obj",
+        "group": "metal",
+        "vertices": 2640,
+        "triangles": 5264,
+        "color": [
+          0.17,
+          0.22,
+          0.25,
+          1
+        ],
+        "metallic": 0.8,
+        "roughness": 0.26
+      },
+      {
+        "resource": "WarpTen.Models.coil__dark.obj",
+        "group": "dark",
+        "vertices": 304,
+        "triangles": 536,
+        "color": [
+          0.025,
+          0.043,
+          0.052,
+          1
+        ],
+        "metallic": 0.25,
+        "roughness": 0.55
+      },
+      {
+        "resource": "WarpTen.Models.coil__ceramic.obj",
+        "group": "ceramic",
+        "vertices": 1152,
+        "triangles": 2304,
+        "color": [
+          0.78,
+          0.8,
+          0.75,
+          1
+        ],
+        "metallic": 0.18,
+        "roughness": 0.32
+      },
+      {
+        "resource": "WarpTen.Models.coil__charge.obj",
+        "group": "charge",
+        "vertices": 2640,
+        "triangles": 5256,
+        "color": [
+          0.015,
+          0.7,
+          0.88,
+          1
+        ],
+        "metallic": 0.15,
+        "roughness": 0.24
+      },
+      {
+        "resource": "WarpTen.Models.coil__status.obj",
+        "group": "status",
+        "vertices": 112,
+        "triangles": 216,
+        "color": [
+          0.47,
+          0.9,
+          0.16,
+          1
+        ],
+        "metallic": 0.1,
+        "roughness": 0.35
+      }
+    ],
+    "portLabels": []
+  },
+  "conduit_straight": {
+    "size": [
+      1,
+      1,
+      1
+    ],
+    "meshes": [
+      {
+        "resource": "WarpTen.Models.conduit_straight__shell.obj",
+        "group": "shell",
+        "vertices": 112,
+        "triangles": 208,
+        "color": [
+          0.54,
+          0.59,
+          0.6,
+          1
+        ],
+        "metallic": 0.65,
+        "roughness": 0.32
+      },
+      {
+        "resource": "WarpTen.Models.conduit_straight__metal.obj",
+        "group": "metal",
+        "vertices": 672,
+        "triangles": 1312,
+        "color": [
+          0.17,
+          0.22,
+          0.25,
+          1
+        ],
+        "metallic": 0.8,
+        "roughness": 0.26
+      },
+      {
+        "resource": "WarpTen.Models.conduit_straight__dark.obj",
+        "group": "dark",
+        "vertices": 384,
+        "triangles": 736,
+        "color": [
+          0.025,
+          0.043,
+          0.052,
+          1
+        ],
+        "metallic": 0.25,
+        "roughness": 0.55
+      },
+      {
+        "resource": "WarpTen.Models.conduit_straight__copper.obj",
+        "group": "copper",
+        "vertices": 192,
+        "triangles": 384,
+        "color": [
+          0.59,
+          0.28,
+          0.1,
+          1
+        ],
+        "metallic": 0.8,
+        "roughness": 0.27
+      },
+      {
+        "resource": "WarpTen.Models.conduit_straight__charge.obj",
+        "group": "charge",
+        "vertices": 48,
+        "triangles": 80,
+        "color": [
+          0.015,
+          0.7,
+          0.88,
+          1
+        ],
+        "metallic": 0.15,
+        "roughness": 0.24
+      }
+    ],
+    "portLabels": [],
+    "plasmaPorts": [
+      {
+        "position": [
+          0.0,
+          0.5,
+          -0.5
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ]
+      },
+      {
+        "position": [
+          0.0,
+          0.5,
+          0.5
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ]
+      }
+    ]
+  },
+  "conduit_corner": {
+    "size": [
+      1,
+      1,
+      1
+    ],
+    "meshes": [
+      {
+        "resource": "WarpTen.Models.conduit_corner__shell.obj",
+        "group": "shell",
+        "vertices": 840,
+        "triangles": 1664,
+        "color": [
+          0.54,
+          0.59,
+          0.6,
+          1
+        ],
+        "metallic": 0.65,
+        "roughness": 0.32
+      },
+      {
+        "resource": "WarpTen.Models.conduit_corner__metal.obj",
+        "group": "metal",
+        "vertices": 1296,
+        "triangles": 2560,
+        "color": [
+          0.17,
+          0.22,
+          0.25,
+          1
+        ],
+        "metallic": 0.8,
+        "roughness": 0.26
+      },
+      {
+        "resource": "WarpTen.Models.conduit_corner__dark.obj",
+        "group": "dark",
+        "vertices": 384,
+        "triangles": 736,
+        "color": [
+          0.025,
+          0.043,
+          0.052,
+          1
+        ],
+        "metallic": 0.25,
+        "roughness": 0.55
+      },
+      {
+        "resource": "WarpTen.Models.conduit_corner__copper.obj",
+        "group": "copper",
+        "vertices": 192,
+        "triangles": 384,
+        "color": [
+          0.59,
+          0.28,
+          0.1,
+          1
+        ],
+        "metallic": 0.8,
+        "roughness": 0.27
+      },
+      {
+        "resource": "WarpTen.Models.conduit_corner__charge.obj",
+        "group": "charge",
+        "vertices": 360,
+        "triangles": 704,
+        "color": [
+          0.015,
+          0.7,
+          0.88,
+          1
+        ],
+        "metallic": 0.15,
+        "roughness": 0.24
+      }
+    ],
+    "portLabels": [],
+    "plasmaPorts": [
+      {
+        "position": [
+          0.0,
+          0.5,
+          -0.5
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ]
+      },
+      {
+        "position": [
+          0.5,
+          0.5,
+          0.0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "conduit_tee": {
+    "size": [
+      1,
+      1,
+      1
+    ],
+    "meshes": [
+      {
+        "resource": "WarpTen.Models.conduit_tee__shell.obj",
+        "group": "shell",
+        "vertices": 336,
+        "triangles": 624,
+        "color": [
+          0.54,
+          0.59,
+          0.6,
+          1
+        ],
+        "metallic": 0.65,
+        "roughness": 0.32
+      },
+      {
+        "resource": "WarpTen.Models.conduit_tee__metal.obj",
+        "group": "metal",
+        "vertices": 1158,
+        "triangles": 2256,
+        "color": [
+          0.17,
+          0.22,
+          0.25,
+          1
+        ],
+        "metallic": 0.8,
+        "roughness": 0.26
+      },
+      {
+        "resource": "WarpTen.Models.conduit_tee__dark.obj",
+        "group": "dark",
+        "vertices": 648,
+        "triangles": 1244,
+        "color": [
+          0.025,
+          0.043,
+          0.052,
+          1
+        ],
+        "metallic": 0.25,
+        "roughness": 0.55
+      },
+      {
+        "resource": "WarpTen.Models.conduit_tee__ceramic.obj",
+        "group": "ceramic",
+        "vertices": 104,
+        "triangles": 204,
+        "color": [
+          0.78,
+          0.8,
+          0.75,
+          1
+        ],
+        "metallic": 0.18,
+        "roughness": 0.32
+      },
+      {
+        "resource": "WarpTen.Models.conduit_tee__copper.obj",
+        "group": "copper",
+        "vertices": 288,
+        "triangles": 576,
+        "color": [
+          0.59,
+          0.28,
+          0.1,
+          1
+        ],
+        "metallic": 0.8,
+        "roughness": 0.27
+      },
+      {
+        "resource": "WarpTen.Models.conduit_tee__charge.obj",
+        "group": "charge",
+        "vertices": 144,
+        "triangles": 240,
+        "color": [
+          0.015,
+          0.7,
+          0.88,
+          1
+        ],
+        "metallic": 0.15,
+        "roughness": 0.24
+      }
+    ],
+    "portLabels": [],
+    "plasmaPorts": [
+      {
+        "position": [
+          0.0,
+          0.5,
+          -0.5
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ]
+      },
+      {
+        "position": [
+          0.0,
+          0.5,
+          0.5
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "position": [
+          0.5,
+          0.5,
+          0.0
+        ],
+        "normal": [
+          1,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "conduit_spacer": {
+    "size": [
+      0.5,
+      0.5,
+      0.25
+    ],
+    "meshes": [
+      {
+        "resource": "WarpTen.Models.conduit_spacer__shell.obj",
+        "group": "shell",
+        "vertices": 192,
+        "triangles": 352,
+        "color": [
+          0.54,
+          0.59,
+          0.6,
+          1
+        ],
+        "metallic": 0.65,
+        "roughness": 0.32
+      },
+      {
+        "resource": "WarpTen.Models.conduit_spacer__metal.obj",
+        "group": "metal",
+        "vertices": 480,
+        "triangles": 960,
+        "color": [
+          0.17,
+          0.22,
+          0.25,
+          1
+        ],
+        "metallic": 0.8,
+        "roughness": 0.26
+      },
+      {
+        "resource": "WarpTen.Models.conduit_spacer__dark.obj",
+        "group": "dark",
+        "vertices": 192,
+        "triangles": 384,
+        "color": [
+          0.025,
+          0.043,
+          0.052,
+          1
+        ],
+        "metallic": 0.25,
+        "roughness": 0.55
+      },
+      {
+        "resource": "WarpTen.Models.conduit_spacer__copper.obj",
+        "group": "copper",
+        "vertices": 192,
+        "triangles": 384,
+        "color": [
+          0.59,
+          0.28,
+          0.1,
+          1
+        ],
+        "metallic": 0.8,
+        "roughness": 0.27
+      },
+      {
+        "resource": "WarpTen.Models.conduit_spacer__charge.obj",
+        "group": "charge",
+        "vertices": 96,
+        "triangles": 192,
+        "color": [
+          0.015,
+          0.7,
+          0.88,
+          1
+        ],
+        "metallic": 0.15,
+        "roughness": 0.24
+      }
+    ],
+    "portLabels": [],
+    "plasmaPorts": [
+      {
+        "position": [
+          0,
+          0.25,
+          -0.125
+        ],
+        "normal": [
+          0,
+          0,
+          -1
+        ]
+      },
+      {
+        "position": [
+          0,
+          0.25,
+          0.125
+        ],
+        "normal": [
+          0,
+          0,
+          1
+        ]
+      }
+    ]
+  },
+  "matrix": {
+    "size": [
+      0.304,
+      0.08,
+      0.176
+    ],
+    "origin": "center",
+    "meshes": [
+      {
+        "resource": "WarpTen.Models.matrix__shell.obj",
+        "group": "shell",
+        "vertices": 384,
+        "triangles": 744,
+        "color": [
+          0.47,
+          0.52,
+          0.56,
+          1
+        ],
+        "metallic": 0.72,
+        "roughness": 0.3
+      },
+      {
+        "resource": "WarpTen.Models.matrix__metal.obj",
+        "group": "metal",
+        "vertices": 144,
+        "triangles": 280,
+        "color": [
+          0.16,
+          0.2,
+          0.24,
+          1
+        ],
+        "metallic": 0.8,
+        "roughness": 0.27
+      },
+      {
+        "resource": "WarpTen.Models.matrix__dark.obj",
+        "group": "dark",
+        "vertices": 96,
+        "triangles": 192,
+        "color": [
+          0.018,
+          0.025,
+          0.034,
+          1
+        ],
+        "metallic": 0.15,
+        "roughness": 0.56
+      },
+      {
+        "resource": "WarpTen.Models.matrix__copper.obj",
+        "group": "copper",
+        "vertices": 224,
+        "triangles": 432,
+        "color": [
+          0.66,
+          0.36,
+          0.12,
+          1
+        ],
+        "metallic": 0.78,
+        "roughness": 0.3
+      },
+      {
+        "resource": "WarpTen.Models.matrix__matrix_core.obj",
+        "group": "matrix_core",
+        "vertices": 42,
+        "triangles": 80,
+        "color": [
+          0.25,
+          0.65,
+          1,
+          1
+        ],
+        "metallic": 0.35,
+        "roughness": 0.3
+      },
+      {
+        "resource": "WarpTen.Models.matrix__matrix_flux.obj",
+        "group": "matrix_flux",
+        "vertices": 96,
+        "triangles": 192,
+        "color": [
+          0.25,
+          0.65,
+          1,
+          1
+        ],
+        "metallic": 0.1,
+        "roughness": 0.24
+      }
+    ],
+    "portLabels": []
+  }
+}

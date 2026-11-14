@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <GamePath Condition="'$(GamePath)' == ''">$(HOME)/Library/Application Support/Steam/steamapps/common/StellarDrive Demo</GamePath>
+  </PropertyGroup>
+  <Import Project="../Local.props" Condition="Exists('../Local.props')" />
+  <PropertyGroup>
+    <StellarComputePath Condition="'$(StellarComputePath)' == ''">$(GamePath)/Mods/Compute.dll</StellarComputePath>
+    <StellarStriderLibPath Condition="'$(StellarStriderLibPath)' == ''">$(MSBuildThisFileDirectory)../../StellarStriderLib/StellarStriderLib/bin/Debug/netstandard2.1/StellarStriderLib.dll</StellarStriderLibPath>
+    <ManagedPath>$(GamePath)/StellarDrive_Data/Managed</ManagedPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="StellarCompute"><HintPath>$(StellarComputePath)</HintPath><Private>false</Private></Reference>
+    <Reference Include="StellarStriderLib"><HintPath>$(StellarStriderLibPath)</HintPath><Private>false</Private></Reference>
+    <Reference Include="$(ManagedPath)/*.dll" Exclude="$(ManagedPath)/mscorlib.dll;$(ManagedPath)/netstandard.dll;$(ManagedPath)/System*.dll;$(ManagedPath)/Mono*.dll"><Private>false</Private></Reference>
+  </ItemGroup>
+  <Target Name="RequirePeripheralApi" BeforeTargets="PrepareForBuild">
+    <Error Condition="!Exists('$(StellarComputePath)')" Text="Building the embedded telemetry adapter requires StellarCompute's public peripheral API. Install StellarCompute or set StellarComputePath to its DLL. Runtime installation remains optional." />
+  </Target>
+</Project>

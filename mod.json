@@ -1,0 +1,19 @@
+{
+  "id": "warpten",
+  "name": "Warp10",
+  "author": "StriderDev",
+  "version": "1.0.0",
+  "description": "Complex FTL system for those that want something more than the stock Stellar Core",
+  "thumbnail": "thumbnail.png",
+  "images": [
+    "gallery/tunnel.png"
+  ],
+  "needs": [
+    "stellarstriderlib"
+  ],
+  "ai": "ai-assisted",
+  "development": "active",
+  "tags": [
+    "stellarstriderlib"
+  ]
+}

@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <GamePath Condition="'$(GamePath)' == ''">$(HOME)/Library/Application Support/Steam/steamapps/common/StellarDrive Demo</GamePath>
+    <StellarStriderLibPath Condition="'$(StellarStriderLibPath)' == ''">$(MSBuildThisFileDirectory)../../StellarStriderLib/StellarStriderLib/bin/Debug/netstandard2.1/StellarStriderLib.dll</StellarStriderLibPath>
+  </PropertyGroup>
+  <Import Project="../Local.props" Condition="Exists('../Local.props')" />
+  <PropertyGroup>
+    <ManagedPath>$(GamePath)/StellarDrive_Data/Managed</ManagedPath>
+    <LoaderPath>$(GamePath)/MelonLoader/net35</LoaderPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="StellarStriderLib"><HintPath>$(StellarStriderLibPath)</HintPath><Private>false</Private></Reference>
+    <Reference Include="$(ManagedPath)/*.dll" Exclude="$(ManagedPath)/mscorlib.dll;$(ManagedPath)/netstandard.dll;$(ManagedPath)/System*.dll;$(ManagedPath)/Mono*.dll"><Private>false</Private></Reference>
+    <Reference Include="$(LoaderPath)/MelonLoader.dll;$(LoaderPath)/0Harmony.dll"><Private>false</Private></Reference>
+    <EmbeddedResource Include="Assets/Models/*" LogicalName="WarpTen.Models.%(Filename)%(Extension)" />
+    <EmbeddedResource Include="Assets/Wallpapers/tunnel.png" LogicalName="WarpTen.Wallpapers.tunnel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets/Visuals/warpten-tunnel" Condition="Exists('Assets/Visuals/warpten-tunnel')" LogicalName="WarpTen.Visuals.warpten-tunnel" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../WarpTen.StellarCompute/WarpTen.StellarCompute.csproj" ReferenceOutputAssembly="false" Private="false" />
+    <EmbeddedResource Include="../WarpTen.StellarCompute/bin/$(Configuration)/netstandard2.1/WarpTen.StellarCompute.dll" LogicalName="WarpTen.StellarCompute.dll" />
+  </ItemGroup>
+  <Target Name="RequireTunnelBundle" BeforeTargets="PrepareForBuild" Condition="'$(Configuration)' == 'Release'">
+    <Error Condition="!Exists('Assets/Visuals/warpten-tunnel')" Text="Compiled D3D11 tunnel bundle missing. To build now with native warp visuals, select Debug in Rider or run: dotnet build WarpTen.slnx -c Debug. A tunnel-enabled Release requires Unity 6000.3.24f1 with Windows build support; see Tools/WarpVisualAssets/README.md." />
+  </Target>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release' and !$([System.String]::IsNullOrWhiteSpace('$(SD_MODS_DIR)'))">
+    <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+  </PropertyGroup>
+  <Target Name="DeployModToStellarDrive" AfterTargets="Build"
+          Condition="'$(Configuration)' == 'Release' and '$(DesignTimeBuild)' != 'true' and '$(IsCrossTargetingBuild)' != 'true' and !$([System.String]::IsNullOrWhiteSpace('$(SD_MODS_DIR)'))">
+    <Error Condition="!$([System.IO.Path]::IsPathFullyQualified('$(SD_MODS_DIR)'))"
+           Text="SD_MODS_DIR must be an absolute host filesystem path to the game's Mods directory. Received: $(SD_MODS_DIR)" />
+    <Message Importance="high" Text="Deploying $(TargetFileName) to $(SD_MODS_DIR)" />
+    <MakeDir Directories="$(SD_MODS_DIR)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(SD_MODS_DIR)" Retries="0" />
+    <Message Importance="high" Text="Deployed $(TargetFileName) to $(SD_MODS_DIR)" />
+  </Target>
+</Project>

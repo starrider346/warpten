@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="WarpTen.StellarCompute/WarpTen.StellarCompute.csproj" />
+  <Project Path="WarpTen/WarpTen.csproj" />
+</Solution>
