@@ -8,9 +8,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Export WarpTen's DLL, metadata and listing images as a ZIP.")
+    parser = argparse.ArgumentParser(description="Export WarpTen's DLL and metadata as a ZIP.")
     parser.add_argument('--dll', type=Path, default=ROOT / 'WarpTen/bin/Release/netstandard2.1/WarpTen.dll')
-    parser.add_argument('--output', type=Path, default=ROOT / 'Releases/WarpTen.zip')
+    parser.add_argument('--output', type=Path, help='Output ZIP (default: Releases/<modid>.zip)')
     parser.add_argument('--build', action='store_true', help='Build Release before exporting')
     args = parser.parse_args()
     if args.build:
@@ -23,13 +23,10 @@ def main():
         metadata = json.loads(manifest.read_text(encoding='utf-8'))
     except json.JSONDecodeError as error:
         parser.error('Invalid mod.json: ' + str(error))
+    mod_id = metadata.get('id') if isinstance(metadata, dict) else None
+    if args.output is None:
+        args.output = ROOT / 'Releases' / f'{mod_id}.zip'
     files = [(args.dll, 'Mods/WarpTen.dll'), (manifest, 'mod.json')]
-    images = ([metadata['thumbnail']] if metadata.get('thumbnail') else []) + metadata.get('images', [])
-    for name in dict.fromkeys(images):
-        path = Path(name)
-        if path.is_absolute() or '..' in path.parts:
-            parser.error('Listing image must use a project-relative path: ' + name)
-        files.append((ROOT / path, path.as_posix()))
     for source, _ in files:
         if not source.is_file():
             parser.error('Missing input: ' + str(source))
