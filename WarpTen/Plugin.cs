@@ -9,7 +9,7 @@ using UnityEngine;
 using WarpTen.Runtime;
 using WarpTen.Simulation;
 
-[assembly: MelonInfo(typeof(WarpTen.Plugin), "Warp10", "1.0.0", "StriderDev")]
+[assembly: MelonInfo(typeof(WarpTen.Plugin), "Warp10", "1.1.0", "StriderDev")]
 [assembly: MelonGame("CuriousOwlGames", "StellarDrive")]
 [assembly: MelonAdditionalDependencies("StellarStriderLib")]
 [assembly: MelonOptionalDependencies("Compute", "Ponder")]
