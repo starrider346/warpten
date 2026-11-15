@@ -22,6 +22,7 @@ namespace WarpTen
         public const uint HydrogenId = 106;
         private const uint CopperItemId = 112, StellarShardItemId = 103;
         private const ushort ChemicalPropulsionId = 20;
+        private const ushort FluidPumpId = 57;
 
         public static bool IsConduit(ushort id) =>
             StraightId != 0 && (id == StraightId || id == CornerId || id == TeeId || id == SpacerId);
@@ -42,20 +43,9 @@ namespace WarpTen
                 { Id = "tunnel", TextureResource = "WarpTen.Wallpapers.tunnel.png" });
             MatrixItems.Register(registry);
             registry.RegisterCategory(new CategoryDefinition { Id = "warp", Name = "Warp10", SortOrder = 110 });
-            RegisterPart(registry, "core", "Warp Core", "StorageChest", new Vector3(3, 3, 3), 1000,
-                NativeSockets("core"));
-            RegisterPart(registry, "infuser", "Warp Coil Infuser", "Constant", new Vector3(3, 2, 2), 100,
-                Array.Empty<SocketDefinition>());
-            RegisterPart(registry, "coil", "Warp Coil", "Constant", new Vector3(3, 2, 1), 100,
-                Array.Empty<SocketDefinition>());
-            RegisterPart(registry, "conduit_straight", "Warp Plasma Conduit — Straight", "Constant", Vector3.one, 5,
-                Array.Empty<SocketDefinition>());
-            RegisterPart(registry, "conduit_corner", "Warp Plasma Conduit — Corner", "Constant", Vector3.one, 5,
-                Array.Empty<SocketDefinition>());
-            RegisterPart(registry, "conduit_tee", "Warp Plasma Conduit — T", "Constant", Vector3.one, 5,
-                Array.Empty<SocketDefinition>());
-            RegisterPart(registry, "conduit_spacer", "Warp Plasma Conduit — Snap Spacer (0.25 m)", "Constant",
-                new Vector3(.5f, .5f, .25f), 2, Array.Empty<SocketDefinition>());
+            foreach (var part in PartCatalog.Parts)
+                RegisterPart(registry, part.Id, part.Name, part.Donor,
+                    new Vector3(part.Width, part.Height, part.Length), part.Mass, NativeSockets(part.Id));
             registry.RegisterResearchTree(new ResearchTreeDefinition
             {
                 Id = "prototype",
@@ -66,12 +56,8 @@ namespace WarpTen
                         Id = "prototype", Name = "Interstellar Travel", AvailableInDemo = true,
                         Prerequisites = new[] { ResearchRef.Native(ChemicalPropulsionId) },
                         Costs = Recipe(80, 60, shards: 20),
-                        UnlockedParts =
-                            new[]
-                            {
-                                "core", "infuser", "coil", "conduit_straight", "conduit_corner", "conduit_tee",
-                                "conduit_spacer"
-                            }.Select(id => PartRef.Mod(ModId + ":" + id)).ToArray()
+                        UnlockedParts = PartCatalog.Parts.Select(part => PartRef.Mod(ModId + ":" + part.Id))
+                            .Concat(new[] { PartRef.Native(FluidPumpId) }).ToArray()
                     }
                 }
             });

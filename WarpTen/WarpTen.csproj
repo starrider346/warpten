@@ -24,6 +24,8 @@
   <ItemGroup>
     <ProjectReference Include="../WarpTen.StellarCompute/WarpTen.StellarCompute.csproj" ReferenceOutputAssembly="false" Private="false" />
     <EmbeddedResource Include="../WarpTen.StellarCompute/bin/$(Configuration)/netstandard2.1/WarpTen.StellarCompute.dll" LogicalName="WarpTen.StellarCompute.dll" />
+    <ProjectReference Include="../WarpTen.Ponder/WarpTen.Ponder.csproj" ReferenceOutputAssembly="false" Private="false" />
+    <EmbeddedResource Include="../WarpTen.Ponder/bin/$(Configuration)/netstandard2.1/WarpTen.Ponder.dll" LogicalName="WarpTen.Ponder.dll" />
   </ItemGroup>
   <Target Name="RequireTunnelBundle" BeforeTargets="PrepareForBuild" Condition="'$(Configuration)' == 'Release'">
     <Error Condition="!Exists('Assets/Visuals/warpten-tunnel')" Text="Compiled D3D11 tunnel bundle missing. To build now with native warp visuals, select Debug in Rider or run: dotnet build WarpTen.slnx -c Debug. A tunnel-enabled Release requires Unity 6000.3.24f1 with Windows build support; see Tools/WarpVisualAssets/README.md." />

@@ -296,8 +296,10 @@ namespace WarpTen.Runtime
         public static bool TryCharging(uint ship, ushort part, out float remaining)
         {
             remaining = 0;
-            if (!Client.TryGetValue(new PartContext(ship, part), out var core) ||
-                core.State.Get<string>("phase") != "Charging")
+            if (!Client.TryGetValue(new PartContext(ship, part), out var core))
+                return false;
+            var phase = core.State.Get<string>("phase");
+            if (phase != "Charging" && phase != "Ready")
                 return false;
             remaining = (float)core.State.Get<double>("chargeRemaining");
             return Tuning.Finite(remaining) && remaining >= 0;

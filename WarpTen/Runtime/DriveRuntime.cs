@@ -4,6 +4,7 @@ using System;
 using MelonLoader;
 using Newtonsoft.Json.Linq;
 using Ships.Cables.Fluids;
+using Ships.Services;
 using Ships.Interface.Model.Parts.Common;
 using Ships.Interface.Model.Parts.State;
 using Ships.Interface.Model.Parts.StateTypes;
@@ -28,6 +29,7 @@ namespace WarpTen.Runtime
         private static readonly Dictionary<uint, DriveSimulation> Drives = new();
         private static readonly Dictionary<uint, (uint Space, PreciseWorldPosition Position)> WarpPositions = new();
         private static readonly Dictionary<uint, WarpEntryPolicy> Entries = new();
+        private static readonly Dictionary<uint, ushort> PendingEntries = new();
         private static readonly HashSet<uint> OwnedShips = new();
         public static Tuning Tuning = new();
         public static uint Hydrogen => Content.HydrogenId;
@@ -65,7 +67,10 @@ namespace WarpTen.Runtime
             {
                 Parts.Remove(p.Id);
                 if (Content.IsCore(p.Part))
+                {
                     Drives.Remove(p.Id.ShipId);
+                    PendingEntries.Remove(p.Id.ShipId);
+                }
             }
         }
 
@@ -78,6 +83,7 @@ namespace WarpTen.Runtime
             Parts.Clear();
             Drives.Clear();
             Entries.Clear();
+            PendingEntries.Clear();
             WarpPositions.Clear();
             OwnedShips.Clear();
         }
@@ -152,6 +158,7 @@ namespace WarpTen.Runtime
 
                 Drives.Remove(ship.Id);
                 Entries.Remove(ship.Id);
+                PendingEntries.Remove(ship.Id);
                 WarpPositions.Remove(ship.Id);
                 return;
             }
@@ -203,21 +210,15 @@ namespace WarpTen.Runtime
                 inWarp, canWarp, geometry.LeftCoils.Count, geometry.RightCoils.Count);
             if (!Entries.TryGetValue(ship.Id, out var entry))
                 Entries[ship.Id] = entry = new WarpEntryPolicy();
-            var previousFailure = entry.Failure;
-            var entered = entry.TryEnter(drive.Phase, inWarp, canWarp, Time.realtimeSinceStartupAsDouble,
-                () => GetService<SpacesServer>().CreateWarpSpaceForShip(ship.Id, corePart.Id),
-                () => spaces.GetSpace(ship.SpaceId) is WarpSpace active && active.SourceShipId == ship.Id &&
-                      active.SourcePartId == corePart.Id);
-            if (entered)
+            // Part updates run after collider loading. Changing spaces here leaves those
+            // colliders out of sync with the active-space cache for this physics tick.
+            if (drive.Phase == DrivePhase.Ready && !inWarp)
+                PendingEntries[ship.Id] = corePart.Id;
+            else
             {
-                GetService<ActiveSpacesServerTracker>().UpdateActiveSpaces();
-                inWarp = true;
-                drive.ConfirmWarpEntry();
-                MelonLogger.Msg(
-                    $"WarpTen ship {ship.Id} entered native warp space {ship.SpaceId} using core {corePart.Id}.");
+                PendingEntries.Remove(ship.Id);
+                entry.TryEnter(drive.Phase, inWarp, canWarp, Time.realtimeSinceStartupAsDouble, null, null);
             }
-            else if (entry.Failure != null && entry.Failure != previousFailure)
-                MelonLogger.Error($"Ship {ship.Id}: {entry.Failure}");
 
             var currentSpace = spaces.GetSpace(ship.SpaceId);
             var warpRestriction = WarpEligibility.Restriction(currentSpace, canWarp, inWarp);
@@ -398,6 +399,43 @@ namespace WarpTen.Runtime
                 var engineering = TelemetrySnapshots.Read(ship.Id, core.Id);
                 engineering.Remove("sampleSequence");
                 Instance(ship.Id, core.Id)?.State.Set("engineering", engineering);
+            }
+        }
+
+        internal static void CompleteEntries()
+        {
+            if (!StriderRegistry.WorldReady || PendingEntries.Count == 0)
+                return;
+            var pending = PendingEntries.ToArray();
+            PendingEntries.Clear();
+            var ships = GetService<ShipsServerTracker>();
+            var spaces = GetService<ISpacesServerProvider>();
+            foreach (var request in pending)
+            {
+                if (!ships.TryGetTrackedShip(request.Key, out var ship) ||
+                    !Drives.TryGetValue(ship.Id, out var drive) ||
+                    !Entries.TryGetValue(ship.Id, out var entry) ||
+                    !ship.TryGetStatefulPart(request.Value, out var core) || !Content.IsCore(core) ||
+                    Instance(ship.Id, core.Id) == null)
+                    continue;
+
+                var space = spaces.GetSpace(ship.SpaceId);
+                var inWarp = space is WarpSpace warp && warp.SourceShipId == ship.Id;
+                var canWarp = GetService<IWorldEnvironmentServerProvider>().CanWarp(ship.SpaceId) &&
+                              space is not ShipRelativeSpace;
+                var previousFailure = entry.Failure;
+                var entered = entry.TryEnter(drive.Phase, inWarp, canWarp, Time.realtimeSinceStartupAsDouble,
+                    () => GetService<SpacesServer>().CreateWarpSpaceForShip(ship.Id, core.Id),
+                    () => spaces.GetSpace(ship.SpaceId) is WarpSpace active && active.SourceShipId == ship.Id &&
+                          active.SourcePartId == core.Id);
+                if (entered)
+                {
+                    drive.ConfirmWarpEntry();
+                    MelonLogger.Msg(
+                        $"WarpTen ship {ship.Id} entered native warp space {ship.SpaceId} using core {core.Id}.");
+                }
+                else if (entry.Failure != null && entry.Failure != previousFailure)
+                    MelonLogger.Error($"Ship {ship.Id}: {entry.Failure}");
             }
         }
 

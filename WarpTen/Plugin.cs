@@ -12,7 +12,7 @@ using WarpTen.Simulation;
 [assembly: MelonInfo(typeof(WarpTen.Plugin), "Warp10", "1.0.0", "StriderDev")]
 [assembly: MelonGame("CuriousOwlGames", "StellarDrive")]
 [assembly: MelonAdditionalDependencies("StellarStriderLib")]
-[assembly: MelonOptionalDependencies("Compute")]
+[assembly: MelonOptionalDependencies("Compute", "Ponder")]
 
 namespace WarpTen
 {
@@ -43,6 +43,7 @@ namespace WarpTen
             registry = StriderRegistry.Create(Content.ModId, typeof(Plugin).Assembly);
             OptionalPeripheral.Initialize();
             Content.Register(registry);
+            OptionalPonder.Initialize();
             registry.WorldBound += Content.Bind;
             registry.WorldUnbinding += Clear;
             NativeHooks.Install(HarmonyInstance);

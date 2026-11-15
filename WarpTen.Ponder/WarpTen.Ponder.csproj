@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <GamePath Condition="'$(GamePath)' == ''">$(HOME)/Library/Application Support/Steam/steamapps/common/StellarDrive Demo</GamePath>
+  </PropertyGroup>
+  <Import Project="../Local.props" Condition="Exists('../Local.props')" />
+  <PropertyGroup>
+    <PonderPath Condition="'$(PonderPath)' == ''">$(MSBuildThisFileDirectory)../../Ponder/Releases/Ponder.dll</PonderPath>
+    <StellarStriderLibPath Condition="'$(StellarStriderLibPath)' == ''">$(MSBuildThisFileDirectory)../../StellarStriderLib/StellarStriderLib/bin/Debug/netstandard2.1/StellarStriderLib.dll</StellarStriderLibPath>
+    <ManagedPath>$(GamePath)/StellarDrive_Data/Managed</ManagedPath>
+    <LoaderPath>$(GamePath)/MelonLoader/net35</LoaderPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ponder"><HintPath>$(PonderPath)</HintPath><Private>false</Private></Reference>
+    <Reference Include="StellarStriderLib"><HintPath>$(StellarStriderLibPath)</HintPath><Private>false</Private></Reference>
+    <Reference Include="$(ManagedPath)/*.dll" Exclude="$(ManagedPath)/mscorlib.dll;$(ManagedPath)/netstandard.dll;$(ManagedPath)/System*.dll;$(ManagedPath)/Mono*.dll"><Private>false</Private></Reference>
+    <Reference Include="$(LoaderPath)/0Harmony.dll"><Private>false</Private></Reference>
+  </ItemGroup>
+  <Target Name="RequirePonderApi" BeforeTargets="PrepareForBuild">
+    <Error Condition="!Exists('$(PonderPath)')" Text="Building the embedded guide adapter requires Ponder's public API. Build Ponder separately or set PonderPath to its DLL. Ponder remains optional at runtime." />
+  </Target>
+</Project>

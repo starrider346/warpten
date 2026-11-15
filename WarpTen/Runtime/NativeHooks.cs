@@ -13,6 +13,7 @@ using Ships.Services;
 using Ships;
 using UnityEngine;
 using WorldTracking.Interface.Model.Spaces;
+using WorldTracking.Spaces;
 using static HarmonyLib.AccessTools;
 using HarmonyEngine = HarmonyLib.Harmony;
 
@@ -27,6 +28,7 @@ namespace WarpTen.Runtime
             MatrixItemMigration.Install(harmony);
             WarpRotationLimit.Install(harmony);
             Patch(harmony, typeof(TrackedShipServer), "UpdateParts", nameof(Complete), false);
+            Patch(harmony, typeof(WarpSpacesServerUpdater), "UpdateWarpSpaces", nameof(CompleteEntries), false);
             Patch(harmony, typeof(ShipWarpDrivesUpdater), "UpdateWarpDriveState", nameof(UpdateDrive), true);
             Patch(harmony, typeof(ShipWarpPhysics), "CalculateWarpTargetVector", nameof(Target), true);
             Patch(harmony, typeof(ShipWarpPhysics), "UpdateWarpPhysics", nameof(Physics), true);
@@ -60,6 +62,8 @@ namespace WarpTen.Runtime
 
         private static void Complete(TrackedShipServer __instance, float deltaTime) =>
             DriveRuntime.Complete(__instance, deltaTime);
+
+        private static void CompleteEntries() => DriveRuntime.CompleteEntries();
 
         private static bool UpdateDrive(ushort __0, IShipStateRead ____ship,
             ShipState ____networkState)
